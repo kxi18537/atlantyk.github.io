@@ -6,398 +6,7 @@
   <title>ATLANTYK</title>
   <meta name="description" content="ATLANTYK — nowoczesny bar z charakterem, animowanymi promocjami i rozwijanym menu." />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg: #0b0f12;
-      --muted: #9aa6b2;
-      --text:#e6eef6;
-      --radius:12px;
-      --glass: rgba(255,255,255,0.03);
-      --shadow: 0 6px 24px rgba(2,6,12,0.65);
-      --accent-grad: linear-gradient(90deg,#7c5cff,#00c2ff);
-      font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    }
-
-    *{box-sizing:border-box;margin:0;padding:0}
-    html,body{height:100%}
-    body{
-      background:
-        radial-gradient(1200px 600px at 10% 10%, rgba(124,92,255,0.04), transparent),
-        radial-gradient(1000px 500px at 90% 90%, rgba(0,200,255,0.02), transparent),
-        var(--bg);
-      color:var(--text);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      padding:20px;
-      display:flex;
-      justify-content:center;
-      align-items:flex-start;
-      overflow-x:hidden;
-      position:relative;
-    }
-
-    /* BACKGROUND - emoji drink icons dryfujące */
-    .bg-emoji {
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      z-index:0;
-      font-size:64px;
-      opacity:0.06;
-      display:block;
-    }
-    .emoji {
-      position:absolute;
-      will-change: transform, opacity;
-      animation: floatY linear infinite;
-    }
-    .e1{ left:6%; top:12%; animation-duration:26s; transform: translateY(0) scale(.95); font-size:86px }
-    .e2{ left:22%; top:6%; animation-duration:30s; transform: translateY(0) scale(.8); font-size:72px }
-    .e3{ right:10%; top:10%; animation-duration:34s; transform: translateY(0) scale(1.05); font-size:96px }
-    .e4{ left:40%; bottom:6%; animation-duration:28s; transform: translateY(0) scale(.7); font-size:64px }
-    .e5{ right:24%; bottom:14%; animation-duration:36s; transform: translateY(0) scale(.9); font-size:78px }
-
-    @keyframes floatY {
-      0%{ transform: translateY(0) rotate(0deg) }
-      50%{ transform: translateY(-28px) rotate(6deg) }
-      100%{ transform: translateY(0) rotate(0deg) }
-    }
-
-    .wrap{
-      width:100%;
-      max-width:1100px;
-      position:relative;
-      z-index:5;
-    }
-
-    header{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding:14px 18px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius:12px;
-      box-shadow:var(--shadow);
-      backdrop-filter: blur(6px) saturate(120%);
-      position:sticky;
-      top:12px;
-      z-index:40;
-    }
-
-    .brand{ display:flex; align-items:center; gap:10px }
-    .logo {
-      font-weight:800;
-      letter-spacing:6px;
-      font-size:20px;
-      text-transform:uppercase;
-      background: linear-gradient(90deg,#7c5cff,#00c2ff,#7ee8fa);
-      background-size:200% 200%;
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
-      animation: slideGradient 6s linear infinite;
-      display:inline-block;
-      padding:6px 10px;
-      border-radius:8px;
-    }
-    @keyframes slideGradient{ 0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%} }
-
-    nav{display:flex;gap:14px;align-items:center}
-    nav a{ color:var(--muted); text-decoration:none; font-weight:600; padding:8px 10px; border-radius:8px; transition:all .18s }
-    nav a:hover{ color:var(--text); background:var(--glass) }
-
-    .menu-toggle{
-      display:none;
-      background:transparent;
-      border:1px solid rgba(255,255,255,0.04);
-      color:var(--text);
-      padding:8px 10px;
-      border-radius:8px;
-    }
-
-    @media (max-width:820px){
-      nav{ display:none; position:absolute; right:20px; top:64px; background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01)); padding:8px; border-radius:8px; box-shadow:var(--shadow) }
-      .menu-toggle{ display:inline-flex }
-      nav.mobile-show{ display:flex; flex-direction:column; gap:6px }
-    }
-
-    .hero{
-      margin-top:18px;
-      padding:36px;
-      border-radius:12px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.03));
-      box-shadow:var(--shadow);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
-      overflow:hidden;
-    }
-
-    .hero-left{ max-width:640px }
-    .hero h2{
-      font-size:34px;
-      margin-bottom:6px;
-      letter-spacing:1px;
-      color:var(--text);
-      font-weight:700;
-      background:linear-gradient(90deg,#a6b3ff,#8ef1ff);
-      -webkit-background-clip:text;
-      color:transparent;
-    }
-    .hero p{ color:var(--muted); font-size:15px; margin-bottom:10px }
-
-    .hero-cta{ display:flex; gap:10px; align-items:center }
-    .btn{
-      background:linear-gradient(90deg,#00c2ff,#7c5cff);
-      color:#021018;
-      padding:9px 12px;
-      border-radius:10px;
-      font-weight:700;
-      cursor:pointer;
-      border:none;
-      box-shadow: 0 6px 20px rgba(124,92,255,0.12);
-      transition:transform .16s ease;
-    }
-    .btn:active{ transform:translateY(1px) }
-
-    .content{
-      display:grid;
-      grid-template-columns: 1fr 380px;
-      gap:18px;
-      margin-top:18px;
-    }
-    @media (max-width:980px){ .content{ grid-template-columns: 1fr } }
-
-    .card{
-      background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
-      border-radius:12px;
-      padding:16px;
-      box-shadow: 0 8px 30px rgba(2,6,12,0.5);
-      border: 1px solid rgba(255,255,255,0.02);
-      overflow:visible;
-    }
-
-    .menu-section h3{
-      font-size:18px;
-      margin-bottom:12px;
-      color:var(--text);
-      font-weight:700;
-    }
-
-    details{
-      background:transparent;
-      border-radius:10px;
-      margin-bottom:10px;
-      overflow:hidden;
-      transition: all .2s ease;
-      border: 1px solid rgba(255,255,255,0.03);
-    }
-    summary{
-      list-style:none;
-      cursor:pointer;
-      padding:10px 14px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:12px;
-      color:var(--text);
-      font-weight:700;
-      user-select:none;
-      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.02));
-    }
-    summary::-webkit-details-marker{display:none}
-    .chev{ width:12px;height:12px; transform:rotate(0deg); transition:transform .25s ease; opacity:.8 }
-    details[open] .chev{ transform:rotate(90deg) }
-
-    .menu-grid{
-      display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap:12px;
-      padding:12px;
-    }
-
-    /* dish card + animation class */
-    .dish{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding:10px;
-      border-radius:8px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.005), rgba(0,0,0,0.03));
-      transition:transform .14s ease, box-shadow .14s ease, opacity .4s ease, transform .4s ease;
-      position:relative;
-      z-index:1;
-      opacity:0;
-      transform: translateY(14px);
-    }
-    .dish.visible{ opacity:1; transform: translateY(0); transition:opacity .5s ease, transform .5s cubic-bezier(.2,.9,.2,1) }
-    .dish + .dish{ margin-top:8px }
-
-    .dish:hover{ transform: translateY(-4px); box-shadow: 0 8px 26px rgba(0,0,0,0.45) }
-
-    .dish .name{ color:var(--text); font-weight:600; font-size:15px; }
-    .dish .meta{ color:var(--muted); font-size:13px; margin-left:8px; font-weight:500 }
-
-    .price{
-      font-weight:800;
-      font-size:15px;
-      color:var(--text);
-      position:relative;
-      padding:6px 10px;
-      border-radius:10px;
-      min-width:64px;
-      text-align:right;
-      letter-spacing:0.6px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.02));
-      z-index:2;
-    }
-
-    .promo{
-      display:inline-block;
-      font-weight:800;
-      padding:4px 8px;
-      border-radius:999px;
-      font-size:12px;
-      margin-left:10px;
-      background: linear-gradient(90deg,#ffb86b,#ff6b9b,#7c5cff,#00c2ff);
-      -webkit-background-clip:text;
-      background-clip:text;
-      -webkit-text-fill-color:transparent;
-      background-size:200% 100%;
-      animation: promoShift 4s linear infinite;
-    }
-    @keyframes promoShift { 0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%} }
-
-    /* rainbow obramowka jako ramka wokół .price (mniej blur) */
-    .dish.has-promo .price{
-      box-shadow: none;
-      outline: 2px solid transparent;
-      position:relative;
-    }
-    .dish.has-promo .price::after{
-      content: "";
-      position: absolute;
-      inset: -6px;
-      border-radius:14px;
-      padding:2px;
-      z-index:1;
-      background: linear-gradient(90deg,
-        rgba(255,102,102,0.95) 0%,
-        rgba(255,178,102,0.95) 18%,
-        rgba(255,236,102,0.95) 36%,
-        rgba(102,255,178,0.95) 54%,
-        rgba(102,178,255,0.95) 72%,
-        rgba(178,102,255,0.95) 90%);
-      -webkit-mask: 
-        linear-gradient(#000 0 0) content-box,
-        linear-gradient(#000 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      opacity:0.95;
-      pointer-events:none;
-      transition: transform .36s ease;
-    }
-
-    /* animated price in hero */
-    .promo-price{
-      font-weight:900;
-      font-size:20px;
-      padding:6px 10px;
-      border-radius:10px;
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
-      background-image: linear-gradient(90deg,#ffb86b,#ff6b9b,#7c5cff,#00c2ff);
-      background-size:300% 100%;
-      animation: priceShift 3.6s linear infinite;
-      display:inline-block;
-    }
-    @keyframes priceShift { 0%{ background-position:0% 50% }50%{ background-position:100% 50% }100%{ background-position:0% 50% } }
-
-    .aside .contact-title{ color:var(--text); font-weight:700; margin-bottom:8px }
-    .contact-list p{ color:var(--muted); margin-bottom:8px; font-size:14px }
-    .contact-list a{ color:var(--text); text-decoration:none; font-weight:700 }
-
-    footer{
-      margin-top:18px;
-      text-align:center;
-      color:var(--muted);
-      font-size:13px;
-      padding:18px 6px;
-    }
-
-    /* voting section */
-    .vote-card{ display:flex; flex-direction:column; gap:12px; align-items:center; text-align:center }
-    .vote-options{ display:flex; gap:10px; width:100%; justify-content:center; flex-wrap:wrap }
-    .vote-btn{
-      min-width:140px;
-      padding:10px 12px;
-      border-radius:10px;
-      border:1px solid rgba(255,255,255,0.04);
-      background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.02));
-      color:var(--text);
-      font-weight:700;
-      cursor:pointer;
-    }
-    .vote-btn:disabled{ opacity:0.5; cursor:not-allowed }
-    .vote-results{ width:100%; margin-top:8px; display:flex; gap:8px; align-items:center; justify-content:space-between }
-    .bar{ flex:1; height:12px; background:rgba(255,255,255,0.04); border-radius:8px; overflow:hidden; position:relative; margin:0 8px }
-    .bar-inner{ height:100%; width:0%; background: linear-gradient(90deg,#7c5cff,#00c2ff); transition:width .6s ease }
-
-    /* modal 18+ */
-    .modal-backdrop{
-      position:fixed;
-      inset:0;
-      background:rgba(3,6,10,0.76);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      z-index:9999;
-    }
-    .modal{
-      width: min(560px, 92%);
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.03));
-      border-radius:12px;
-      padding:20px;
-      box-shadow: 0 18px 60px rgba(0,0,0,0.7);
-      text-align:center;
-      color:var(--text);
-    }
-    .modal h3{ margin-bottom:8px }
-    .modal p{ color:var(--muted); margin-bottom:14px }
-    .modal .row{ display:flex; gap:12px; justify-content:center }
-    .modal .btn-ghost{
-      background:transparent;
-      border:1px solid rgba(255,255,255,0.06);
-      color:var(--text);
-      padding:10px 14px;
-      border-radius:10px;
-      cursor:pointer;
-    }
-    .modal .btn-confirm{
-      background:linear-gradient(90deg,#00c2ff,#7c5cff);
-      color:#021018;
-      padding:10px 14px;
-      border-radius:10px;
-      border:none;
-      cursor:pointer;
-      font-weight:700;
-    }
-
-    /* responsive tweaks */
-    @media (max-width:640px){
-      .hero{ flex-direction:column; align-items:flex-start; padding:18px }
-      .hero-left h2{ font-size:24px }
-      .content{ gap:12px }
-      .logo{ font-size:18px; letter-spacing:4px }
-      .menu-grid{ grid-template-columns:1fr }
-      .promo-price{ font-size:18px }
-      .emoji{ opacity:0.04 }
-    }
-
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <!-- background emojis -->
@@ -420,6 +29,10 @@
         <a href="#menu">Menu</a>
         <a href="#kontakt">Kontakt</a>
         <a href="#glosowanie">Głosowanie</a>
+        <a href="cart.html" class="cart-link">
+          🛒 Koszyk
+          <span id="cart-count" class="cart-count">0</span>
+        </a>
       </nav>
 
       <button class="menu-toggle" onclick="toggleMenu()" aria-expanded="false" aria-controls="main-nav">☰</button>
@@ -433,6 +46,9 @@
 
         <div class="hero-cta">
           <button class="btn" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">Zobacz menu</button>
+          <a href="cart.html" class="btn btn-secondary" style="text-decoration: none;">
+            🛒 Przejdź do koszyka
+          </a>
         </div>
       </div>
 
@@ -461,32 +77,8 @@
               <span>Piwo</span>
               <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 18l6-6-6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </summary>
-            <div class="menu-grid">
-              <div class="dish has-promo">
-                <div>
-                  <span class="name">Pale Ale</span>
-                  <span class="meta"> — jasne, cytrusowe</span>
-                  <span class="promo">PROMO -10%</span>
-                </div>
-                <div class="price">12 zł</div>
-              </div>
-
-              <div class="dish">
-                <div>
-                  <span class="name">IPA</span>
-                  <span class="meta"> — chmielowy</span>
-                </div>
-                <div class="price">16 zł</div>
-              </div>
-
-              <div class="dish has-promo">
-                <div>
-                  <span class="name">Porter</span>
-                  <span class="meta"> — karmel, kawa</span>
-                  <span class="promo">HIT!</span>
-                </div>
-                <div class="price">15 zł</div>
-              </div>
+            <div class="menu-grid" id="beer-menu">
+              <!-- Produkty będą ładowane dynamicznie -->
             </div>
           </details>
 
@@ -495,30 +87,8 @@
               <span>Koktajle</span>
               <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 18l6-6-6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </summary>
-            <div class="menu-grid">
-              <div class="dish">
-                <div>
-                  <span class="name">Mojito</span>
-                  <span class="meta"> — świeża mięta</span>
-                </div>
-                <div class="price">20 zł</div>
-              </div>
-
-              <div class="dish has-promo">
-                <div>
-                  <span class="name">Whisky Sour</span>
-                  <span class="meta"> — klasyk</span>
-                  <span class="promo">2 za 1!</span>
-                </div>
-                <div class="price">24 zł</div>
-              </div>
-
-              <div class="dish">
-                <div>
-                  <span class="name">Negroni</span>
-                </div>
-                <div class="price">26 zł</div>
-              </div>
+            <div class="menu-grid" id="cocktails-menu">
+              <!-- Produkty będą ładowane dynamicznie -->
             </div>
           </details>
 
@@ -527,17 +97,21 @@
               <span>Przekąski</span>
               <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 18l6-6-6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </summary>
-            <div class="menu-grid">
-              <div class="dish">
-                <div><span class="name">Deska serów</span></div>
-                <div class="price">38 zł</div>
-              </div>
-              <div class="dish">
-                <div><span class="name">Frytki z ziołami</span></div>
-                <div class="price">14 zł</div>
-              </div>
+            <div class="menu-grid" id="snacks-menu">
+              <!-- Produkty będą ładowane dynamicznie -->
             </div>
           </details>
+
+          <!-- Sekcja koszyka na stronie głównej -->
+          <div style="margin-top: 30px; padding: 20px; text-align: center; border-top: 1px solid rgba(255,255,255,0.1);">
+            <h4 style="margin-bottom: 15px; color: var(--text);">Chcesz złożyć zamówienie?</h4>
+            <p style="color: var(--muted); margin-bottom: 20px; font-size: 14px;">
+              Przejdź do koszyka, aby dodać produkty i wygenerować listę dla kelnera
+            </p>
+            <a href="cart.html" class="btn" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+              🛒 Przejdź do koszyka
+            </a>
+          </div>
 
         </section>
 
@@ -577,7 +151,7 @@
           <div class="contact-title">Kontakt</div>
           <div class="contact-list">
             <p>ul. kł</p>
-            <p>Tel: <a href="tel:+48123456789">+48 11111111/a></p>
+            <p>Tel: <a href="tel:+48123456789">+48 11111111</a></p>
             <p id="kontakt">Email: <a href="mailto:kontakt@atlantyk.pl">kontakt@atlantyk.pl</a></p>
             <div style="height:10px"></div>
             <p class="muted">Godziny otwarcia</p>
@@ -613,163 +187,8 @@
     </div>
   </div>
 
-  <script>
-    // Mobile nav toggle
-    function toggleMenu(){
-      const nav = document.getElementById('main-nav');
-      const btn = document.querySelector('.menu-toggle');
-      if(nav.classList.contains('mobile-show')){
-        nav.classList.remove('mobile-show');
-        btn.setAttribute('aria-expanded','false');
-      } else {
-        nav.classList.add('mobile-show');
-        btn.setAttribute('aria-expanded','true');
-      }
-    }
-
-    // Ensure .has-promo class if promo exists
-    document.querySelectorAll('.dish').forEach(d => {
-      if(d.querySelector('.promo')) d.classList.add('has-promo');
-    });
-
-    // card animation on scroll using IntersectionObserver
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if(e.isIntersecting){
-          e.target.classList.add('visible');
-          obs.unobserve(e.target);
-        }
-      });
-    }, {threshold: 0.12});
-
-    document.querySelectorAll('.dish').forEach(d => obs.observe(d));
-
-    // 18+ modal: appears every load, blocks until confirmed/redirect
-    const ageModal = document.getElementById('age-modal');
-    const im18 = document.getElementById('im-18');
-    const not18 = document.getElementById('not-18');
-
-    // block scrolling behind modal
-    document.body.style.overflow = 'hidden';
-
-    im18.addEventListener('click', () => {
-      ageModal.style.display = 'none';
-      document.body.style.overflow = '';
-    });
-
-    not18.addEventListener('click', () => {
-      ageModal.querySelector('.modal').innerHTML = '<h3>Dostęp ograniczony</h3><p>Nie możesz wejść na tę stronę jeśli nie masz 18 lat.</p><div style="margin-top:16px"><button class="btn-ghost" id="back-btn">OK</button></div>';
-      const backBtn = document.getElementById('back-btn');
-      backBtn.addEventListener('click', () => {
-        window.location.href = 'about:blank';
-      });
-    });
-
-    // focus confirm for keyboard users
-    document.getElementById('im-18').focus();
-
-    // ---- Voting logic (persisted in localStorage) ----
-    // Storage keys
-    const STORE_KEY = 'atl_voting_counts_v1';
-    const VOTED_KEY = 'atl_voted_v1';
-
-    // default counts if none
-    function readCounts(){
-      try{
-        const raw = localStorage.getItem(STORE_KEY);
-        if(!raw) return {left:0,right:0};
-        return JSON.parse(raw);
-      }catch(e){ return {left:0,right:0}; }
-    }
-    function writeCounts(c){
-      localStorage.setItem(STORE_KEY, JSON.stringify(c));
-    }
-    function hasVoted(){
-      return !!localStorage.getItem(VOTED_KEY);
-    }
-    function setVoted(choice){
-      // choice: 'left' or 'right'
-      localStorage.setItem(VOTED_KEY, choice);
-    }
-
-    // UI elements
-    const btnLeft = document.getElementById('vote-left');
-    const btnRight = document.getElementById('vote-right');
-    const feedback = document.getElementById('vote-feedback');
-    const resultsWrap = document.getElementById('vote-results');
-    const barLeft = document.getElementById('bar-left');
-    const barRight = document.getElementById('bar-right');
-    const countLeft = document.getElementById('count-left');
-    const countRight = document.getElementById('count-right');
-
-    // initialize UI from storage
-    function renderResults(){
-      const counts = readCounts();
-      const total = counts.left + counts.right;
-      // show counts and bars
-      countLeft.textContent = counts.left;
-      countRight.textContent = counts.right;
-      const leftPct = total ? Math.round((counts.left/total)*100) : 0;
-      const rightPct = total ? 100 - leftPct : 0;
-      barLeft.style.width = leftPct + '%';
-      barRight.style.width = rightPct + '%';
-      resultsWrap.style.display = 'block';
-    }
-
-    function disableVotingUI(){
-      btnLeft.disabled = true;
-      btnRight.disabled = true;
-    }
-
-    function enableVotingUI(){
-      btnLeft.disabled = false;
-      btnRight.disabled = false;
-    }
-
-    // handle a vote
-    function castVote(side){
-      if(hasVoted()){
-        feedback.textContent = 'Już głosowałeś — dziękujemy!';
-        return;
-      }
-      const counts = readCounts();
-      if(side === 'left') counts.left += 1;
-      else counts.right += 1;
-      writeCounts(counts);
-      setVoted(side);
-      feedback.textContent = 'Dziękujemy za głos!';
-      disableVotingUI();
-      renderResults();
-    }
-
-    // set initial state
-    if(hasVoted()){
-      disableVotingUI();
-      feedback.textContent = 'Już głosowałeś — wynik poniżej.';
-    } else {
-      feedback.textContent = '';
-    }
-    renderResults();
-
-    btnLeft.addEventListener('click', () => castVote('left'));
-    btnRight.addEventListener('click', () => castVote('right'));
-
-    // Accessibility: keyboard support for votes
-    [btnLeft, btnRight].forEach(b => b.addEventListener('keydown', (e) => {
-      if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); b.click(); }
-    }));
-
-    // ensure emoji reduce opacity on small screens
-    function adjustEmojiOpacity(){
-      if(window.innerWidth < 640){
-        document.querySelectorAll('.emoji').forEach(el => el.style.opacity = '0.03');
-      } else {
-        document.querySelectorAll('.emoji').forEach(el => el.style.opacity = '');
-      }
-    }
-    adjustEmojiOpacity();
-    window.addEventListener('resize', adjustEmojiOpacity);
-
-  </script>
+  <script src="menu-data.js"></script>
+  <script src="script.js"></script>
+  <script src="cart-manager.js"></script>
 </body>
 </html>

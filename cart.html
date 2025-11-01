@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ATLANTYK - Koszyk</title>
+  <meta name="description" content="ATLANTYK — koszyk zamówień." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="cart.css">
+</head>
+<body>
+  <!-- background emojis -->
+  <div class="bg-emoji" aria-hidden="true">
+    <div class="emoji e1">🍺</div>
+    <div class="emoji e2">🍸</div>
+    <div class="emoji e3">🍹</div>
+    <div class="emoji e4">🥂</div>
+    <div class="emoji e5">🍷</div>
+  </div>
+
+  <div class="wrap">
+
+    <header>
+      <div class="brand header-row">
+        <a href="index.html" style="text-decoration: none;">
+          <div class="logo" aria-hidden="true">ATLANTYK</div>
+        </a>
+      </div>
+
+      <nav id="main-nav" aria-label="Główne menu">
+        <a href="index.html#menu">Menu</a>
+        <a href="index.html#kontakt">Kontakt</a>
+        <a href="index.html#glosowanie">Głosowanie</a>
+        <a href="cart.html" class="cart-link">
+          🛒 Koszyk
+          <span id="cart-count" class="cart-count">0</span>
+        </a>
+      </nav>
+
+      <button class="menu-toggle" onclick="toggleMenu()" aria-expanded="false" aria-controls="main-nav">☰</button>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero" role="region" aria-label="Koszyk">
+      <div class="hero-left">
+        <h2>Twój koszyk</h2>
+        <p>Dodaj produkty do zamówienia i wygeneruj listę dla kelnera.</p>
+      </div>
+    </section>
+
+    <div class="content">
+      <main>
+        <!-- Sekcja dodawania produktów -->
+        <section class="card">
+          <h3>Dodaj produkty do zamówienia</h3>
+          
+          <div class="category-section">
+            <h4>Piwa</h4>
+            <div class="menu-grid" id="beer-menu-cart">
+              <!-- Produkty będą ładowane dynamicznie -->
+            </div>
+          </div>
+
+          <div class="category-section">
+            <h4>Koktajle</h4>
+            <div class="menu-grid" id="cocktails-menu-cart">
+              <!-- Produkty będą ładowane dynamicznie -->
+            </div>
+          </div>
+
+          <div class="category-section">
+            <h4>Przekąski</h4>
+            <div class="menu-grid" id="snacks-menu-cart">
+              <!-- Produkty będą ładowane dynamicznie -->
+            </div>
+          </div>
+        </section>
+
+        <!-- Sekcja koszyka -->
+        <section class="card cart-section">
+          <h3>Twoje zamówienie</h3>
+          <div id="cart-items" class="cart-items">
+            <!-- Produkty w koszyku będą ładowane dynamicznie -->
+            <div id="empty-cart-message" class="empty-cart">
+              <p>Twój koszyk jest pusty</p>
+              <p style="color: var(--muted); font-size: 14px; margin-top: 10px;">
+                Dodaj produkty z menu powyżej
+              </p>
+            </div>
+          </div>
+          
+          <div id="cart-summary" class="cart-summary" style="display: none;">
+            <div class="total-price">
+              <span>Razem:</span>
+              <span id="total-amount">0 zł</span>
+            </div>
+            
+            <button id="generate-order-btn" class="btn generate-btn">
+              📋 Wygeneruj listę dla kelnera
+            </button>
+          </div>
+        </section>
+
+        <!-- Sekcja wygenerowanego zamówienia -->
+        <section id="order-section" class="card order-section" style="display: none;">
+          <h3>Lista dla kelnera</h3>
+          <div id="order-content">
+            <!-- Zawartość zamówienia będzie generowana dynamicznie -->
+          </div>
+          <div class="order-actions">
+            <button id="new-order" class="btn">
+              📝 Nowe zamówienie
+            </button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <footer>
+      © ATLANTYK 2025 — minimalistyczny, nowoczesny klimat.
+    </footer>
+
+  </div>
+
+  <!-- 18+ Modal (appears every load) -->
+  <div id="age-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="age-title">
+    <div class="modal">
+      <h3 id="age-title">Potwierdź wiek</h3>
+      <p>Czy masz ukończone 18 lat? Ta strona zawiera informacje o napojach alkoholowych.</p>
+      <div class="row">
+        <button class="btn-ghost" id="not-18">Nie, nie mam 18+</button>
+        <button class="btn-confirm" id="im-18">Tak, mam 18+</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Wbudowane dane menu bezpośrednio w cart.html
+    const menuData = {
+      beer: [
+        { name: "Pale Ale", meta: " — jasne, cytrusowe", price: "12 zł", promo: "PROMO -10%" },
+        { name: "IPA", meta: " — chmielowy", price: "16 zł", promo: null },
+        { name: "Porter", meta: " — karmel, kawa", price: "15 zł", promo: "HIT!" }
+      ],
+      cocktails: [
+        { name: "Mojito", meta: " — świeża mięta", price: "20 zł", promo: null },
+        { name: "Whisky Sour", meta: " — klasyk", price: "24 zł", promo: "2 za 1!" },
+        { name: "Negroni", meta: "", price: "26 zł", promo: null }
+      ],
+      snacks: [
+        { name: "Deska serów", meta: "", price: "38 zł", promo: null },
+        { name: "Frytki z ziołami", meta: "", price: "14 zł", promo: null }
+      ]
+    };
+  </script>
+  <script src="cart-manager.js"></script>
+  <script src="cart.js"></script>
+</body>
+</html>
